@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'byebug'
 require 'json'
 
 namespace :update_players do
