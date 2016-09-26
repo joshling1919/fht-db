@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'open-uri'
-require 'byebug'
 require 'json'
 response = open('http://api.fantasy.nfl.com/players/researchinfo?format=json&count=1000').read
 response = JSON.parse(response)
