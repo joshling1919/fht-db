@@ -78,8 +78,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: fht-db_production
-  username: fht-db
-  password: <%= ENV['FHT-DB_DATABASE_PASSWORD'] %>
+# production:
+#   <<: *default
+#   database: fht-db_production
+#   username: fht-db
+#   password: <%= ENV['FHT-DB_DATABASE_PASSWORD'] %>
