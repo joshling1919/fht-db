@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926054201) do
+ActiveRecord::Schema.define(version: 20160926084819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 20160926054201) do
     t.integer  "numDrops"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "netAdds"
+    t.integer  "nflId"
+  end
+
+  add_index "players", ["netAdds"], name: "index_players_on_netAdds", using: :btree
+  add_index "players", ["nflId"], name: "index_players_on_nflId", using: :btree
+  add_index "players", ["percentOwnedChange"], name: "index_players_on_percentOwnedChange", using: :btree
+
+  create_table "update_logs", force: :cascade do |t|
+    t.string   "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
