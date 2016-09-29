@@ -11,35 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926200015) do
+ActiveRecord::Schema.define(version: 20160929225526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "players", force: :cascade do |t|
     t.string   "esbid"
-    t.string   "gsisPlayerId"
-    t.string   "firstName"
-    t.string   "lastName"
-    t.string   "teamAbbr"
-    t.string   "opponentTeamAbbr"
+    t.string   "gsis_player_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "team_abbr"
+    t.string   "opponent_team_abbr"
     t.string   "position"
-    t.float    "percentOwned"
-    t.float    "percentOwnedChange"
-    t.float    "percentStarted"
-    t.float    "percentStartedChange"
-    t.integer  "depthChartOrder"
-    t.integer  "numAdds"
-    t.integer  "numDrops"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "netAdds"
-    t.integer  "nflId"
+    t.float    "percent_owned"
+    t.float    "percent_owned_change"
+    t.float    "percent_started"
+    t.float    "percent_started_change"
+    t.integer  "depth_chart_order"
+    t.integer  "num_adds"
+    t.integer  "num_drops"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "net_adds"
+    t.integer  "nfl_id"
   end
 
-  add_index "players", ["netAdds"], name: "index_players_on_netAdds", using: :btree
-  add_index "players", ["nflId"], name: "index_players_on_nflId", using: :btree
-  add_index "players", ["percentOwnedChange"], name: "index_players_on_percentOwnedChange", using: :btree
+  add_index "players", ["net_adds"], name: "index_players_on_net_adds", using: :btree
+  add_index "players", ["nfl_id"], name: "index_players_on_nfl_id", using: :btree
+  add_index "players", ["percent_owned_change"], name: "index_players_on_percent_owned_change", using: :btree
 
   create_table "update_logs", force: :cascade do |t|
     t.string   "time"
