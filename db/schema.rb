@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929225526) do
+ActiveRecord::Schema.define(version: 20160930062249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160929225526) do
 
   add_index "players", ["net_adds"], name: "index_players_on_net_adds", using: :btree
   add_index "players", ["nfl_id"], name: "index_players_on_nfl_id", using: :btree
+  add_index "players", ["percent_owned"], name: "index_players_on_percent_owned", using: :btree
   add_index "players", ["percent_owned_change"], name: "index_players_on_percent_owned_change", using: :btree
 
   create_table "update_logs", force: :cascade do |t|
