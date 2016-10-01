@@ -6,7 +6,6 @@ namespace :update_players do
   task ownership: :environment do
     response = open('http://api.fantasy.nfl.com/players/researchinfo?count=1000&format=json&sort=percentOwnedDelta').read
     response = JSON.parse(response)
-
     UpdateLog.create!(time: response["lastUpdated"])
     puts 'updating ownership changes'
     puts "updating with info from #{response["lastUpdated"]}"
