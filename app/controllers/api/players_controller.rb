@@ -13,10 +13,22 @@ class Api::PlayersController < ApplicationController
     else
       @players = []
     end
+    render :index
   end
 
   def to_boolean(str)
     str == "true"
+  end
+
+  def favorites
+    @players = [];
+    params.each do |key, value|
+      if key[0..2] == "fav"
+        player = Player.find_by(nfl_id: value.to_i)
+        @players << player
+      end
+    end
+    render :index
   end
 
 
@@ -54,41 +66,43 @@ class Api::PlayersController < ApplicationController
       puts "****************************"
 
 
-
-      oauth_consumer_key = access_json["consumer"]["key"]
-      oauth_nonce = Random.rand(100000).to_s
-      oauth_signature_method = 'HMAC-SHA1'
-      oauth_timestamp = Time.now.to_i.to_s
-      oauth_version = '1.0'
-      oauth_token = access_json["params"]["oauth_token"]
-
-      url =  'http://fantasysports.yahooapis.com/fantasy/v2/player/'
-
-      parameters = 'oauth_consumer_key=' +
-              oauth_consumer_key +
-              '&oauth_nonce=' +
-              oauth_nonce +
-              '&oauth_signature_method=' +
-              oauth_signature_method +
-              '&oauth_timestamp=' +
-              oauth_timestamp +
-              '&oauth_token=' +
-              oauth_token +
-              '&oauth_version=' +
-              oauth_version
-
-      base_string = 'GET&' + CGI.escape(url) + '&' + CGI.escape(parameters)
-
-      ## Cryptographic hash function used to generate oauth_signature
-      # by passing the secret key and base string. Note that & has
-      # been appended to the secret key. Don't forget this!
       #
-      # This line of code is from a SO topic
-      # (http://stackoverflow.com/questions/4084979/ruby-way-to-generate-a-hmac-sha1-signature-for-oauth)
-      # with minor modifications.
-      secret_key = access_json["params"]["oauth_token_secret"] # Dummy shared secret, change to yours
-      oauth_signature = CGI.escape(Base64.encode64("#{OpenSSL::HMAC.digest('sha1',secret_key, base_string)}").chomp)
-      testable_url = url + '?' + parameters + '&oauth_signature=' + oauth_signature
+      # oauth_consumer_key = access_json["consumer"]["key"]
+      # oauth_nonce = Random.rand(100000).to_s
+      # oauth_signature_method = 'HMAC-SHA1'
+      # oauth_timestamp = Time.now.to_i.to_s
+      # oauth_version = '1.0'
+      # oauth_token = access_json["params"]["oauth_token"]
+      #
+      # url =  'http://fantasysports.yahooapis.com/fantasy/v2/player/'
+      #
+      # parameters = 'oauth_consumer_key=' +
+      #         oauth_consumer_key +
+      #         '&oauth_nonce=' +
+      #         oauth_nonce +
+      #         '&oauth_signature_method=' +
+      #         oauth_signature_method +
+      #         '&oauth_timestamp=' +
+      #         oauth_timestamp +
+      #         '&oauth_token=' +
+      #         oauth_token +
+      #         '&oauth_version=' +
+      #         oauth_version
+      #
+      # base_string = 'GET&' + CGI.escape(url) + '&' + CGI.escape(parameters)
+      #
+      # ## Cryptographic hash function used to generate oauth_signature
+      # # by passing the secret key and base string. Note that & has
+      # # been appended to the secret key. Don't forget this!
+      # #
+      # # This line of code is from a SO topic
+      # # (http://stackoverflow.com/questions/4084979/ruby-way-to-generate-a-hmac-sha1-signature-for-oauth)
+      # # with minor modifications.
+      # secret_key = access_json["params"]["oauth_token_secret"] # Dummy shared secret, change to yours
+      # oauth_signature = CGI.escape(Base64.encode64("#{OpenSSL::HMAC.digest('sha1',secret_key, base_string)}").chomp)
+      # testable_url = url + '?' + parameters + '&oauth_signature=' + oauth_signature
+      something = @@access_token.get("http://fantasysports.yahooapis.com/fantasy/v2/player/223.p.5479/percent_owned")
       byebug
+
   end
 end
